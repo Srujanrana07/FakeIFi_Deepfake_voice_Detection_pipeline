@@ -1,7 +1,6 @@
 # 🎙️ Deepfake Voice Detection  
 **An End-to-End Audio Forensics & Detection Pipeline**
 <p align="center"> <img src="https://img.shields.io/badge/Domain-Audio%20AI-blue" /> <img src="https://img.shields.io/badge/Model-CNN-orange" /> <img src="https://img.shields.io/badge/Features-MFCC-success" /> <img src="https://img.shields.io/badge/Backend-Flask-black" /> <img src="https://img.shields.io/badge/Status-Research%20Prototype-yellow" /> </p>
----
 
 ## 📌 Overview
 
@@ -93,6 +92,37 @@ Class imbalance in the training set is handled using **SMOTE**.
 
 ---
 
+## 🖥️ User Interface Preview
+
+### 📱 Responsive Design
+### Landing & Upload Flow
+| Web View (Landing) | Mobile View (Landing) |
+|-------------------|----------------------|
+| ![](assets/ui/web/landing.png) | ![](assets/ui/web/1.png) |
+
+| Web View (Upload) | Mobile View (Upload) |
+|------------------|---------------------|
+| ![](assets/ui/web/upload.png) | ![](assets/ui/web/6.png) |
+
+### User Information
+| Web View (User Info) | Mobile View (User Info) |
+|--------------------|------------------------|
+| ![](assets/ui/web/userinfo.png) | ![](assets/ui/web/2.png) |
+
+### Analysis & Results
+| Web Analysis | Mobile Analysis |
+|-------------|----------------|
+| ![](assets/ui/web/diagnosis.png) | ![](assets/ui/web/3.png) |
+
+| Web Result | Mobile Result (View 1) | Mobile Result (View 2) |
+|-----------|-----------------------|------------------------|
+| ![](assets/ui/web/ressults.png) | ![](assets/ui/web/5.png) | ![](assets/ui/web/4.png) |
+
+
+
+All UI components are responsive and optimized for **desktop and mobile devices**.
+---
+
 ## 🎛️ Audio Processing Pipeline
 
 Each audio sample undergoes:
@@ -145,37 +175,6 @@ The deployed model achieves **~80–85% accuracy** on unseen data.
 - Visual audio analytics
 - Clear prediction summaries with recommendations
 
----
-
-## 🖥️ User Interface Preview
-
-### 📱 Responsive Design
-### Landing & Upload Flow
-| Web View (Landing) | Mobile View (Landing) |
-|-------------------|----------------------|
-| ![](assets/ui/web/landing.png) | ![](assets/ui/web/1.png) |
-
-| Web View (Upload) | Mobile View (Upload) |
-|------------------|---------------------|
-| ![](assets/ui/web/upload.png) | ![](assets/ui/web/6.png) |
-
-### User Information
-| Web View (User Info) | Mobile View (User Info) |
-|--------------------|------------------------|
-| ![](assets/ui/web/userinfo.png) | ![](assets/ui/web/2.png) |
-
-### Analysis & Results
-| Web Analysis | Mobile Analysis |
-|-------------|----------------|
-| ![](assets/ui/web/diagnosis.png) | ![](assets/ui/web/3.png) |
-
-| Web Result | Mobile Result (View 1) | Mobile Result (View 2) |
-|-----------|-----------------------|------------------------|
-| ![](assets/ui/web/ressults.png) | ![](assets/ui/web/5.png) | ![](assets/ui/web/4.png) |
-
-
-
-All UI components are responsive and optimized for **desktop and mobile devices**.
 
 ---
 
