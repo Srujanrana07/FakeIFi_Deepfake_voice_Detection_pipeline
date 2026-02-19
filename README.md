@@ -1,6 +1,6 @@
 # 🎙️ Deepfake Voice Detection  
 **An End-to-End Audio Forensics & Detection Pipeline**
-
+<p align="center"> <img src="https://img.shields.io/badge/Domain-Audio%20AI-blue" /> <img src="https://img.shields.io/badge/Model-CNN-orange" /> <img src="https://img.shields.io/badge/Features-MFCC-success" /> <img src="https://img.shields.io/badge/Backend-Flask-black" /> <img src="https://img.shields.io/badge/Status-Research%20Prototype-yellow" /> </p>
 ---
 
 ## 📌 Overview
