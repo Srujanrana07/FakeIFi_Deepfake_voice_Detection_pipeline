@@ -20,14 +20,18 @@ A fully functional frontend application has also been developed and is available
 - [Dataset](#-dataset)
 - [Audio Processing Pipeline](#-audio-processing-pipeline)
 - [Modeling Approach](#-modeling-approach)
+- [Web Application](#-web-application)
+- [User Interface Preview](#-user-interface-preview)
 - [Backend Service](#-backend-service)
 - [Frontend Availability](#-frontend-availability)
 - [Results & Performance](#-results--performance)
 - [Limitations](#-limitations)
-- [Future Enhancements](#-future-enhancements)
 - [Repository Structure](#-repository-structure)
 - [Installation & Usage](#-installation--usage)
+- [References](#-references)
+- [Final Note](#-final-note)
 - [Contact](#-contact)
+
 
 ---
 
@@ -65,14 +69,17 @@ This architecture bridges **research-grade modeling** with **deployment-ready sy
 
 ---
 
+
+---
+
 ## 📂 Dataset
 
-- **Dataset:** SceneFake  
-- **Sampling Rate:** 16 kHz, 16-bit mono WAV  
+- **Dataset:** SceneFake
+- **Audio Format:** 16 kHz, 16-bit, mono WAV
 
 ### Classes
-- Real (bona fide speech)  
-- Fake (synthetic / manipulated speech)  
+- Real (bona fide speech)
+- Fake (synthetic / manipulated speech)
 
 ### Dataset Split
 
@@ -82,7 +89,7 @@ This architecture bridges **research-grade modeling** with **deployment-ready sy
 | Dev | 12,843 |
 | Eval | 32,746 |
 
-Class imbalance in the training set is addressed using **SMOTE** during model training.
+Class imbalance in the training set is handled using **SMOTE**.
 
 ---
 
@@ -90,13 +97,16 @@ Class imbalance in the training set is addressed using **SMOTE** during model tr
 
 Each audio sample undergoes:
 
-- Loading and resampling at 16 kHz  
-- Mono conversion  
-- Silence trimming (optional)  
-- Amplitude normalization  
-- MFCC feature extraction  
+- Loading and resampling (16 kHz)
+- Mono conversion
+- Silence trimming (optional)
+- Amplitude normalization
+- Feature extraction:
+  - MFCCs
+  - Spectrograms
+  - Pitch and silence statistics
 
-This pipeline ensures consistency and robustness across varying audio conditions.
+These steps ensure **robust and consistent** model inputs.
 
 ---
 
@@ -104,18 +114,68 @@ This pipeline ensures consistency and robustness across varying audio conditions
 
 ### CNN-Based Deepfake Classifier
 
-- **Input:** MFCC feature maps  
+- **Input:** MFCC feature maps
 - **Architecture:**
-  - 1D Convolution layers with ReLU activation  
-  - Dropout regularization  
-  - MaxPooling  
-  - Softmax output (Real vs Fake)  
-- **Optimizer:** Adam  
-- **Loss Function:** Sparse Categorical Cross-Entropy  
+  - Conv1D layers with ReLU activation
+  - Dropout for regularization
+  - MaxPooling
+  - Softmax output (Real vs Fake)
+- **Optimizer:** Adam
+- **Loss:** Sparse Categorical Cross-Entropy
 
-The deployed model achieves **~80–85% accuracy** on unseen evaluation data.
+The deployed model achieves **~80–85% accuracy** on unseen data.
 
-> Classical ML baselines (Random Forest, KNN) were explored during experimentation but are not part of the deployed inference pipeline.
+> Classical ML baselines (Random Forest, KNN) are explored in the accompanying research report.
+
+---
+
+## 🌐 Web Application
+
+### Backend
+- **Framework:** Flask
+- Handles audio ingestion, preprocessing, inference, and response generation
+
+### Frontend
+- **React (JavaScript)**
+- **Vanilla CSS**
+
+#### Features
+- Step-based user flow
+- Audio recording & upload
+- Visual audio analytics
+- Clear prediction summaries with recommendations
+
+---
+
+## 🖥️ User Interface Preview
+
+### 📱 Responsive Design
+###Landing & Upload Flow
+| Web View (Landing) | Mobile View (Landing) |
+|-------------------|----------------------|
+| ![](assets/ui/web/landing.png) | ![](assets/ui/web/1.png) |
+
+| Web View (Upload) | Mobile View (Upload) |
+|------------------|---------------------|
+| ![](assets/ui/web/upload.png) | ![](assets/ui/web/6.png) |
+
+### User Information
+| Web View (User Info) | Mobile View (User Info) |
+|--------------------|------------------------|
+| ![](assets/ui/web/userinfo.png) | ![](assets/ui/web/2.png) |
+
+### Analysis & Results
+| Web Analysis | Mobile Analysis |
+|-------------|----------------|
+| ![](assets/ui/web/diagnosis.png) | ![](assets/ui/web/3.png) |
+
+| Web Result | Mobile Result (View 1) | Mobile Result (View 2) |
+|-----------|-----------------------|------------------------|
+| ![](assets/ui/web/ressults.png) | ![](assets/ui/web/5.png) | ![](assets/ui/web/4.png) |
+
+
+
+All UI components are responsive and optimized for **desktop and mobile devices**.
 
 ---
 
@@ -170,17 +230,6 @@ Please reach out via email.
 - No explicit adversarial defense mechanisms  
 
 ---
-
-## 🚀 Future Enhancements
-
-- 2D CNN / CRNN architectures on spectrograms  
-- Transformer-based audio encoders (e.g., wav2vec 2.0)  
-- Cross-dataset generalization experiments  
-- Threshold calibration for production deployment  
-- Public demo deployment  
-
----
-
 ## 📁 Repository Structure
 
 ```
@@ -206,9 +255,28 @@ https://github.com/Srujanrana07/FakeIFi_Deepfake_voice_Detection_pipeline.git
 # Install dependencies
 pip install -r requirements.txt
 
-# Run backend
+# Backend
 python app.py
+
+# Frontend
+npm install
+npm run dev
 ```
+
+---
+
+## 📚 References
+
+Detailed information on the dataset, model architecture, evaluation metrics, and related research is available in the accompanying GitHub repository:
+
+🔗 https://github.com/Srujanrana07/DeepFake-Voice-Detection.git
+
+
+---
+
+## ✅ Final Note
+
+This repository represents a **full-stack, research-driven deepfake voice detection system**, built to demonstrate not just modeling skill—but **end-to-end ML system design**.
 
 ---
 
@@ -217,3 +285,4 @@ python app.py
 📧 **Email:** srujanrana204@gmail.com  
 
 For frontend access, collaboration, or discussion.
+
