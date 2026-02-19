@@ -150,7 +150,7 @@ The deployed model achieves **~80–85% accuracy** on unseen data.
 ## 🖥️ User Interface Preview
 
 ### 📱 Responsive Design
-###Landing & Upload Flow
+### Landing & Upload Flow
 | Web View (Landing) | Mobile View (Landing) |
 |-------------------|----------------------|
 | ![](assets/ui/web/landing.png) | ![](assets/ui/web/1.png) |
