@@ -232,14 +232,24 @@ Please reach out via email.
 ## 📁 Repository Structure
 
 ```
-srujanrana07-fakeifi_deepfake_voice_detection_pipeline/
+Directory structure:
+└── srujanrana07-fakeifi_deepfake_voice_detection_pipeline/
+    ├── README.md
     ├── app.py
     ├── LICENSE
     ├── requirements.txt
     ├── voice_analysis.py
     ├── voice_model.py
+    ├── assets/
+    │   └── ui/
+    │       └── web/
+    │           └── web.txtt
     └── models/
-        └── label_encoder.joblib
+    │    └── label_encoder.joblib
+    └── saved_models/
+        └── SceneFake_CNN_SMOTE.h5
+    
+
 
 ```
 
@@ -275,7 +285,7 @@ Detailed information on the dataset, model architecture, evaluation metrics, and
 
 ## ✅ Final Note
 
-This repository represents a **full-stack, research-driven deepfake voice detection system**, built to demonstrate not just modeling skill—but **end-to-end ML system design**.
+This repository represents a **full-stack, research-driven deepfake voice detection system**, built to demonstrate not just modeling skill but **end-to-end ML system design**.
 
 ---
 
