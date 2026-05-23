@@ -1,297 +1,247 @@
-# 🎙️ Deepfake Voice Detection  
-**An End-to-End Audio Forensics & Detection Pipeline**
-<p align="center"> <img src="https://img.shields.io/badge/Domain-Audio%20AI-blue" /> <img src="https://img.shields.io/badge/Model-CNN-orange" /> <img src="https://img.shields.io/badge/Features-MFCC-success" /> <img src="https://img.shields.io/badge/Backend-Flask-black" /> <img src="https://img.shields.io/badge/Status-Research%20Prototype-yellow" /> </p>
+# FakeIFi — Deepfake Voice Detection Pipeline
 
-## 📌 Overview
+![Domain](https://img.shields.io/badge/Domain-Audio%20Forensics-blue) ![Model](https://img.shields.io/badge/Model-CNN-orange) ![Features](https://img.shields.io/badge/Features-MFCC-success) ![Backend](https://img.shields.io/badge/Backend-Flask-black) ![Status](https://img.shields.io/badge/Status-Research%20Prototype-yellow)
 
-This repository contains a research-driven, end-to-end **Deepfake Voice Detection** system that integrates audio signal processing, deep learning, and backend deployment to identify whether a voice sample is **authentic or synthetically generated**.
-
-The project is designed as a complete ML pipeline, extending from raw audio ingestion to confidence-based predictions.  
-A fully functional frontend application has also been developed and is available **upon request**.
+FakeIFi is an end-to-end audio forensics system for detecting synthetically generated speech. It integrates signal processing, deep learning, and a backend inference API to classify voice samples as authentic or AI-generated with an associated confidence score.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [Dataset](#-dataset)
-- [Audio Processing Pipeline](#-audio-processing-pipeline)
-- [Modeling Approach](#-modeling-approach)
-- [Web Application](#-web-application)
-- [User Interface Preview](#-user-interface-preview)
-- [Backend Service](#-backend-service)
-- [Frontend Availability](#-frontend-availability)
-- [Results & Performance](#-results--performance)
-- [Limitations](#-limitations)
-- [Repository Structure](#-repository-structure)
-- [Installation & Usage](#-installation--usage)
-- [References](#-references)
-- [Final Note](#-final-note)
-- [Contact](#-contact)
-
+- [System Architecture](#system-architecture)
+- [Dataset](#dataset)
+- [Audio Processing Pipeline](#audio-processing-pipeline)
+- [Model](#model)
+- [Results](#results)
+- [Web Application](#web-application)
+- [UI Preview](#ui-preview)
+- [Repository Structure](#repository-structure)
+- [Installation](#installation)
+- [Demo](#demo)
+- [Limitations](#limitations)
+- [References](#references)
+- [Contact](#contact)
 
 ---
 
-## ✨ Key Features
-
-- CNN-based deepfake voice detection  
-- MFCC-driven audio representation  
-- End-to-end ML inference pipeline  
-- Audio preprocessing and feature extraction  
-- Confidence-based binary classification  
-- Backend API for model serving  
-- Frontend application (private / on request)  
-
----
-
-## 🏗️ System Architecture
+## System Architecture
 
 ```
 Audio Input
-  ↓
+    |
+    v
 Preprocessing (Librosa)
-  ↓
+    |
+    v
 MFCC Feature Extraction
-  ↓
+    |
+    v
 CNN-Based Classifier
-  ↓
+    |
+    v
 Prediction + Confidence Score
-  ↓
-Backend API (Flask)
-  ↓
-Frontend Application (Private)
+    |
+    v
+Flask Backend API
+    |
+    v
+Frontend Application (private)
 ```
 
-This architecture bridges **research-grade modeling** with **deployment-ready system design**.
+---
+
+## Dataset
+
+**Source:** SceneFake  
+**Format:** 16 kHz, 16-bit, mono WAV
+
+| Split | Samples |
+|-------|---------|
+| Train | 13,185  |
+| Dev   | 12,843  |
+| Eval  | 32,746  |
+
+**Classes:** Real (bona fide speech), Fake (synthetic or manipulated speech)
+
+Class imbalance in the training set is addressed using SMOTE (Synthetic Minority Over-sampling Technique).
 
 ---
 
+## Audio Processing Pipeline
 
----
+Each audio sample is passed through the following preprocessing stages before feature extraction:
 
-## 📂 Dataset
-
-- **Dataset:** SceneFake
-- **Audio Format:** 16 kHz, 16-bit, mono WAV
-
-### Classes
-- Real (bona fide speech)
-- Fake (synthetic / manipulated speech)
-
-### Dataset Split
-
-| Split | Files |
-|------|-------|
-| Train | 13,185 |
-| Dev | 12,843 |
-| Eval | 32,746 |
-
-Class imbalance in the training set is handled using **SMOTE**.
-
----
-
-## 🖥️ User Interface Preview
-
-### 📱 Responsive Design
-### Landing & Upload Flow
-| Web View (Landing) | Mobile View (Landing) |
-|-------------------|----------------------|
-| ![](assets/ui/web/landing.png) | ![](assets/ui/web/1.png) |
-
-| Web View (Upload) | Mobile View (Upload) |
-|------------------|---------------------|
-| ![](assets/ui/web/upload.png) | ![](assets/ui/web/6.png) |
-
-### User Information
-| Web View (User Info) | Mobile View (User Info) |
-|--------------------|------------------------|
-| ![](assets/ui/web/userinfo.png) | ![](assets/ui/web/2.png) |
-
-### Analysis & Results
-| Web Analysis | Mobile Analysis |
-|-------------|----------------|
-| ![](assets/ui/web/diagnosis.png) | ![](assets/ui/web/3.png) |
-
-| Web Result | Mobile Result (View 1) | Mobile Result (View 2) |
-|-----------|-----------------------|------------------------|
-| ![](assets/ui/web/ressults.png) | ![](assets/ui/web/5.png) | ![](assets/ui/web/4.png) |
-
-
-
-All UI components are responsive and optimized for **desktop and mobile devices**.
----
-
-## 🎛️ Audio Processing Pipeline
-
-Each audio sample undergoes:
-
-- Loading and resampling (16 kHz)
-- Mono conversion
-- Silence trimming (optional)
+- Resampling to 16 kHz
+- Mono channel conversion
+- Optional silence trimming
 - Amplitude normalization
-- Feature extraction:
-  - MFCCs
-  - Spectrograms
-  - Pitch and silence statistics
 
-These steps ensure **robust and consistent** model inputs.
+**Extracted Features**
 
----
-
-## 🤖 Modeling Approach
-
-### CNN-Based Deepfake Classifier
-
-- **Input:** MFCC feature maps
-- **Architecture:**
-  - Conv1D layers with ReLU activation
-  - Dropout for regularization
-  - MaxPooling
-  - Softmax output (Real vs Fake)
-- **Optimizer:** Adam
-- **Loss:** Sparse Categorical Cross-Entropy
-
-The deployed model achieves **~80–85% accuracy** on unseen data.
-
-> Classical ML baselines (Random Forest, KNN) are explored in the accompanying research report.
+- MFCCs (Mel-Frequency Cepstral Coefficients)
+- Spectrograms
+- Pitch and silence statistics
 
 ---
 
-## 🌐 Web Application
+## Model
 
-### Backend
-- **Framework:** Flask
-- Handles audio ingestion, preprocessing, inference, and response generation
+**Architecture:** 1D Convolutional Neural Network (CNN)
+
+| Component | Detail |
+|-----------|--------|
+| Input | MFCC feature maps |
+| Layers | Conv1D + ReLU, MaxPooling, Dropout |
+| Output | Softmax (Real / Fake) |
+| Optimizer | Adam |
+| Loss | Sparse Categorical Cross-Entropy |
+
+Classical ML baselines (Random Forest, KNN) are explored in the accompanying research report and companion repository.
+
+---
+
+## Results
+
+| Metric | Value |
+|--------|-------|
+| Evaluation Accuracy | ~80–85% |
+| Classification Type | Binary (Real vs. Synthetic) |
+| Output | Label + Confidence Score |
+
+The model produces stable inference results suitable for real-time usage scenarios.
+
+---
+
+## Web Application
 
 ### Frontend
-- **React (JavaScript)**
-- **Vanilla CSS**
 
-#### Features
-- Step-based user flow
-- Audio recording & upload
-- Visual audio analytics
-- Clear prediction summaries with recommendations
+Built with React (JavaScript) and Vanilla CSS. Features include:
 
+- Step-based user flow for guided interaction
+- In-browser audio recording and file upload
+- Audio forensics visualizations
+- Prediction summaries with confidence scores
 
----
+> The frontend codebase is currently private. See [Contact](#contact) for access requests.
 
-## ⚙️ Backend Service
+### Backend
 
-- **Framework:** Flask  
+Built with Flask. Responsibilities:
 
-### Responsibilities
-- Audio ingestion  
-- Feature extraction  
-- Model inference  
-- Response generation  
+- Audio ingestion and validation
+- Feature extraction
+- Model inference
+- JSON response generation
 
-The backend is designed to be **frontend-agnostic**, allowing easy integration with web or mobile clients.
+The backend is frontend-agnostic and can be integrated with any web or mobile client.
 
 ---
 
-## 🖥️ Frontend Availability
+## UI Preview
 
-A fully implemented frontend application has been developed to complement this system, featuring:
+All UI components are responsive and optimized for desktop and mobile devices.
 
-- Step-based user flow  
-- Audio recording and upload  
-- Audio forensics visualizations  
-- Prediction summaries with confidence scores  
+### Landing & Upload
 
-🔒 **The frontend code is currently private.**
+| Web — Landing | Mobile — Landing |
+|---------------|-----------------|
+| ![Web Landing](assets/ui/web/landing.png) | ![Mobile Landing](assets/ui/web/1.png) |
 
-📩 If you are interested in:
-- Reviewing the frontend  
-- Collaborating on the project  
-- Requesting a demo  
+| Web — Upload | Mobile — Upload |
+|--------------|----------------|
+| ![Web Upload](assets/ui/web/upload.png) | ![Mobile Upload](assets/ui/web/6.png) |
 
-Please reach out via email.
+### User Information
 
----
+| Web — User Info | Mobile — User Info |
+|----------------|--------------------|
+| ![Web User Info](assets/ui/web/userinfo.png) | ![Mobile User Info](assets/ui/web/2.png) |
 
-## 📊 Results & Performance
+### Analysis & Results
 
-- Binary classification: **Real vs Synthetic**  
-- Evaluation accuracy: **~80–85%**  
-- Confidence-based prediction outputs  
-- Stable inference suitable for real-time usage  
+| Web — Analysis | Mobile — Analysis |
+|---------------|------------------|
+| ![Web Analysis](assets/ui/web/diagnosis.png) | ![Mobile Analysis](assets/ui/web/3.png) |
 
----
-
-## ⚠️ Limitations
-
-- Evaluation limited to a single benchmark dataset  
-- Generalization to unseen datasets not yet validated  
-- Some overfitting observed in CNN training  
-- No explicit adversarial defense mechanisms  
+| Web — Result | Mobile — Result (1) | Mobile — Result (2) |
+|-------------|---------------------|---------------------|
+| ![Web Result](assets/ui/web/ressults.png) | ![Mobile Result 1](assets/ui/web/5.png) | ![Mobile Result 2](assets/ui/web/4.png) |
 
 ---
-## 📁 Repository Structure
+
+## Repository Structure
 
 ```
-Directory structure:
-└── srujanrana07-fakeifi_deepfake_voice_detection_pipeline/
-    ├── README.md
-    ├── app.py
-    ├── LICENSE
-    ├── requirements.txt
-    ├── voice_analysis.py
-    ├── voice_model.py
-    ├── assets/
-    │   └── ui/
-    │       └── web/
-    │           └── web.txtt
-    └── models/
-    │    └── label_encoder.joblib
-    └── saved_models/
-        └── SceneFake_CNN_SMOTE.h5
-    
-
-
+fakeifi_deepfake_voice_detection_pipeline/
+├── app.py
+├── voice_analysis.py
+├── voice_model.py
+├── requirements.txt
+├── LICENSE
+├── README.md
+├── assets/
+│   └── ui/
+│       └── web/
+├── models/
+│   └── label_encoder.joblib
+└── saved_models/
+    └── SceneFake_CNN_SMOTE.h5
 ```
 
 ---
 
-## ⚙️ Installation & Usage
+## Installation
 
 ```bash
 # Clone the repository
-https://github.com/Srujanrana07/FakeIFi_Deepfake_voice_Detection_pipeline.git
+git clone https://github.com/Srujanrana07/FakeIFi_Deepfake_voice_Detection_pipeline.git
+cd FakeIFi_Deepfake_voice_Detection_pipeline
 
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 
-# Backend
+# Start the backend server
 python app.py
 
-# Frontend
+# Frontend (if applicable)
 npm install
 npm run dev
 ```
 
 ---
 
-## 📚 References
+## Demo
 
-Detailed information on the dataset, model architecture, evaluation metrics, and related research is available in the accompanying GitHub repository:
+A live demo and walkthrough of FakeIFi is available on request. The demo covers:
 
-🔗 https://github.com/Srujanrana07/DeepFake-Voice-Detection.git
+- End-to-end audio upload and classification flow
+- Confidence score output and forensics visualizations
+- Mobile and desktop UI walkthrough
 
-
----
-
-## ✅ Final Note
-
-This repository represents a **full-stack, research-driven deepfake voice detection system**, built to demonstrate not just modeling skill but **end-to-end ML system design**.
+To request a demo or review the frontend, contact via email below.
 
 ---
 
-## 📬 Contact
+## Limitations
 
-📧 **Email:** srujanrana204@gmail.com  
+- Evaluation is limited to the SceneFake benchmark; cross-dataset generalization has not been validated.
+- Some degree of overfitting was observed during CNN training.
+- No adversarial defense mechanisms are implemented.
+- The system is a research prototype and has not been evaluated in production environments.
 
-For frontend access, collaboration, or discussion.
+---
 
+## References
+
+Dataset, architecture details, evaluation metrics, and related research are documented in the companion repository:
+
+[https://github.com/Srujanrana07/DeepFake-Voice-Detection](https://github.com/Srujanrana07/DeepFake-Voice-Detection)
+
+---
+
+## Contact
+
+**Email:** srujanrana204@gmail.com
+
+For frontend access, demo requests, or collaboration inquiries, reach out via email.
