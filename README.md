@@ -27,26 +27,10 @@ FakeIFi is an end-to-end audio forensics system for detecting synthetically gene
 ## System Architecture
 
 ```
-Audio Input
-    |
-    v
-Preprocessing (Librosa)
-    |
-    v
-MFCC Feature Extraction
-    |
-    v
-CNN-Based Classifier
-    |
-    v
-Prediction + Confidence Score
-    |
-    v
-Flask Backend API
-    |
-    v
-Frontend Application (private)
+[ Audio Input ] --> [ Preprocessing (Librosa) ] --> [ MFCC Feature Extraction ] --> [ CNN-Based Classifier ] --> [ Prediction + Confidence Score ] --> [ Flask Backend API ] --> [ Frontend Application (Private) ]
 ```
+<img width="2632" height="2652" alt="diagram (5)" src="https://github.com/user-attachments/assets/8b94355b-91be-4174-9254-9dc46a4b2fc5" />
+
 
 ---
 
